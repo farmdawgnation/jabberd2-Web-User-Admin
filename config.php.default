@@ -116,5 +116,6 @@ $admin_jids = array('admin@localhost', 'admin2@localhost');
 // DO NOT EDIT THESE
 /////////
 define('APP_PATH', dirname(__FILE__));
+define('VIEW_PATH', APP_PATH . '/views');
 
 ?>

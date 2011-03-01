@@ -21,22 +21,31 @@
 ################
 
 /**
- * This class represents the user controller.
+ * This class defines a controller
+ * which requires user authentication
+ * to utilize.
  */
-class user {
+class view {
 	/**
-	 * Handles login functionality.
-	 */
-	public function login() {
-		//Check for incoming post variables.
-		if(isset($_POST)) {
-			//Do authentication
+	 * This method loads and displays a view from the
+	 * views directory.
+	**/
+	public static function load($vname, $data = array()) {
+		//Does the view exist?
+		if(!file_exists(VIEW_PATH . '/' . $vname . '.php')) {
+			die("Error 404: View resource not found.");
+		} else {
+			//Set locals
+			if(is_array($data)) {
+				foreach($data as $k => $v) {
+					//variable variables... haha
+					$$k = $v;
+				}
+			}
+			
+			//load file
+			require_once(VIEW_PATH . '/' . $vname . '.php');
 		}
-		
-		//Render views
-		view::load('header');
-		view::load('login/login', $data);
-		view::load('footer');
 	}
 }
 

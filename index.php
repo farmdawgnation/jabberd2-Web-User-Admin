@@ -20,6 +20,10 @@
 # limitations under the License.
 ################
 
+//Define the version
+define('APP_VERSION_NAME', '0.1');
+define('APP_VERSION_CODE', '1');
+
 //Initilize the session.
 session_start();
 

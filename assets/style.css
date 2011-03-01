@@ -1,0 +1,41 @@
+/* Login dialog */
+#login_box {
+	margin-right: auto;
+	margin-left: auto;
+	width: 400px;
+	background-color: #cccccc;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding: 0px 10px 10px 10px;
+	margin-top: 40px;
+	-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 10px 10px 5px #888;
+}
+
+#login_box h1 {
+	margin: 0px;
+	padding: 0px;
+}
+
+#login_box p {
+}
+
+#login_box p.error {
+	color: red;
+}
+
+#login_box .field label {
+	display:block;
+	float:left;
+	min-width: 100px;
+}
+
+#login_box .field input {
+	width: 200px;
+}
+
+#login_box .submit {
+	text-align: right;
+}

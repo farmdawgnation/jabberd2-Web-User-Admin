@@ -28,9 +28,42 @@ class user {
 	 * Handles login functionality.
 	 */
 	public function login() {
+		//global
+		global $admin_jids;
+		
 		//Check for incoming post variables.
 		if(isset($_POST)) {
-			//Do authentication
+			//Do authentication.
+			//Step 1 - is this user in the admin array?
+			if(in_array($_POST['username'], $admin_jids)) {
+				//This is an admin JID, so now we check for correct login.
+				//If we are supposed to hash passwords, do so before moving
+				//forward.
+				$jidparts = explode("@", $_POST['username'], 2);
+				$username = $jidparts[0];
+				$realm = $jidparts[1];
+				$password = $_POST['password'];
+				
+				if(PREF_PASSFORMAT == 'md5') {
+					$password = md5($password);
+				}
+				
+				//Now, we query the database for information on
+				//users
+				$pdoStatement = database::this()->prepare("SELECT * FROM authreg WHERE username = :username AND realm = :realm");
+				$pdoStatement->execute(array('username' => $username, 'realm' => $realm));
+				$userInfo = $pdoStatement->fetch();
+				
+				//Validate the password
+				if($password == $userInfo['password']) {
+					//successful authentication
+				} else {
+					//fail
+					$data['error'] = "The username/password was invalid.";
+				}
+			} else {
+				$data['error'] = "That user is not an administrator on this system.";
+			}
 		}
 		
 		//Render views

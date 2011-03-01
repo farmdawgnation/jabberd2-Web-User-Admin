@@ -1,4 +1,6 @@
 	<div id="login_box">
+		<h1>jabberd2-webuseradmin</h1>
+		
 		<p>
 			To log into jabberd2-webuseradmin, please enter your
 			full JID and Jabber password to authenticate. Remember, you
@@ -20,15 +22,15 @@
 		
 		<form method="post">
 			<div class="field">
-				<label for="username">Username:</label>
+				<label for="username">JID:</label>
 				<input type="text" name="username" />
 			</div>
 			<div class="field">
-				<label for="password">Password</label>
+				<label for="password">Password:</label>
 				<input type="password" name="password" />
 			</div>
 			<div class="submit">
-				<input id="login_submit" type="submit" value="Log In" />
+				<input id="login_submit" type="submit" value="Log In &raquo;" />
 			</div>
 		</form>
 	</div>

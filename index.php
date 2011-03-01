@@ -60,7 +60,7 @@ if(!$_GET['controller'] && !$_GET['action']) {
 //Now, we must attempt to locate the controller file.
 if(file_exists(APP_PATH . '/controllers/' . $controller . '.php')) {
 	//Pull in the file
-	require_once(APP_PATH . '/controllers/' . $controller . '.php'));
+	require_once(APP_PATH . '/controllers/' . $controller . '.php');
 } else {
 	//Terminate with error
 	die("Fatal error: Controller not found.");

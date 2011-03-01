@@ -27,14 +27,13 @@
  */
 class util {
 	/**
-	 * This constructor will only work if the user is authenticated.
-	 * Otherwise, it will trigger a redirect.
+	 * This method will generate an internal redirect then kill execution.
+	 * @param controller The controller to redirect to.
+	 * @param action The action within the controller.
 	 */
 	public function redirect($controller, $action) {
-		if(!$_SESSION['logged_in']) {
-			header("Location: " . $_SERVER['REQUEST_URI'] . "?controller=$controller&action=$action");
-			die();
-		}
+		header("Location: " . $_SERVER['REQUEST_URI'] . "?controller=$controller&action=$action");
+		die();
 	}
 }
 

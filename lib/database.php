@@ -19,7 +19,7 @@ class database {
 	 * Connect to the database and save the instance of the connection
 	 * in a static variable.
 	**/
-	public static init() {
+	public static function init() {
 		//Construct the DSN
 		$dsn = 'mysql:dbname=' . DB_DATABASE;
 		
@@ -46,7 +46,7 @@ class database {
 	 * Retrieve the current instance of the database.
 	 * @returns A PDO object or terminates with an error.
 	**/
-	public static this() {
+	public static function this() {
 		if(isset(self::$pdoInstance)) {
 			return self::$pdoInstance;
 		} else {

@@ -58,6 +58,7 @@ if(!method_exists($controller, $action)) {
 
 //Do what we do best.
 //Call the controller and action!
-$controller::$action();
+$controller = new $controller();
+$controller->$action;
 
 ?>

@@ -42,6 +42,7 @@ require_once('config.php');
 require_once('lib/database.php');
 require_once('lib/protected_controller.php');
 require_once('lib/view.php');
+require_once('lib/util.php');
 
 //Connect to the database
 database::init();

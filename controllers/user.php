@@ -39,7 +39,7 @@ class user {
 				//This is an admin JID, so now we check for correct login.
 				//If we are supposed to hash passwords, do so before moving
 				//forward.
-				$jidparts = explode("@", $_POST['username'], 2);
+				$jidparts = explode("@", strtolower($_POST['username']), 2);
 				$username = $jidparts[0];
 				$realm = $jidparts[1];
 				$password = $_POST['password'];
@@ -57,6 +57,10 @@ class user {
 				//Validate the password
 				if($password == $userInfo['password']) {
 					//successful authentication
+					$_SESSION['logged_in'] = strtolower($_POST['username']);
+					
+					//Redirect
+					util::redirect('home', 'dashboard');
 				} else {
 					//fail
 					$data['error'] = "The username/password was invalid.";

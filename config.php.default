@@ -22,18 +22,18 @@ define('DB_TYPE', 'mysql');
 
 /////
 // DB_CONNTYPE
-// Either 'tcp' or 'socket'. If socket you need to specify
+// Either 'host' or 'unixsocket'. If socket you need to specify
 // the path to a local UNIX socket to connect to. If tcp you'll
 // fill out the host information
 /////
-define('DB_CONNTYPE', 'socket');
+define('DB_CONNTYPE', 'unixsocket');
 
 /////
-// DB_LOCAL_SOCKET
+// DB_UNIX_SOCKET
 // Only if you set DB_CONNTYPE to 'socket'
 // The path to the UNIX socket for the Db.
 /////
-define('DB_LOCAL_SOCKET', '/var/run/mysql.sock');
+define('DB_UNIX_SOCKET', '/tmp/mysql.sock');
 
 /////
 // DB_HOST_ADDRESS, DB_HOST_POST
@@ -97,5 +97,12 @@ define('PREF_PASSFORMAT', 'plain');
 // will be disabled in favor of a databased solution.
 /////
 $admin_jids = array('admin@localhost', 'admin2@localhost');
+
+
+/////////
+// Application Constants
+// DO NOT EDIT THESE
+/////////
+define('APP_PATH', dirname(__FILE__));
 
 ?>

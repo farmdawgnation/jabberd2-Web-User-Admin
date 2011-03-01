@@ -32,7 +32,7 @@ class user {
 		global $admin_jids;
 		
 		//Check for incoming post variables.
-		if(isset($_POST)) {
+		if(isset($_POST) && count($_POST) > 0) {
 			//Do authentication.
 			//Step 1 - is this user in the admin array?
 			if(in_array($_POST['username'], $admin_jids)) {

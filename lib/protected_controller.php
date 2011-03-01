@@ -32,7 +32,7 @@ class protected_controller {
 	 */
 	public function __construct() {
 		if(!$_SESSION['logged_in']) {
-			header("Location: /index.php?controller=user&action=login");
+			header("Location: " . $_SERVER['REQUEST_URI'] . "?controller=user&action=login");
 			die();
 		}
 	}

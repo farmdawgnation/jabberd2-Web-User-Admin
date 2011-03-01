@@ -35,7 +35,7 @@ class user {
 		
 		//Render views
 		view::load('header');
-		view::load('login/login', $data);
+		view::load('user/login', $data);
 		view::load('footer');
 	}
 }

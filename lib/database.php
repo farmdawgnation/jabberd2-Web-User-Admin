@@ -35,7 +35,7 @@ class database {
 		//Construct the DSN
 		$dsn = 'mysql:dbname=' . DB_DATABASE;
 		
-		if(DB_CONNTYPE == 'socket') {
+		if(DB_CONNTYPE == 'unixsocket') {
 			$dsn .= ';unix_socket=' . DB_UNIX_SOCKET;
 		} else if(DB_CONNTYPE == 'host') { 
 			$dsn .= ';host=' . DB_HOST_ADDRESS;
@@ -46,11 +46,11 @@ class database {
 		
 		//Init PDO
 		try {
-			$dbh = new PDO($dsn, $user, $password);
+			$dbh = new PDO($dsn, DB_USER, DB_PASS);
 			
 			self::$pdoInstance = $dbh;
 		} catch (PDOException $e) {
-			die 'Database connection failed: ' . $e->getMessage();
+			die('Database connection failed: ' . $e->getMessage());
 		}
 	}
 	

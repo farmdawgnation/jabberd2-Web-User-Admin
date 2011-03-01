@@ -20,6 +20,9 @@
 # limitations under the License.
 ################
 
+//report errors
+error_reporting(E_ALL);
+
 //Define the version
 define('APP_VERSION_NAME', '0.1');
 define('APP_VERSION_CODE', '1');
@@ -37,6 +40,8 @@ if(!file_exists('config.php') || !is_readable('config.php')) {
 //Load the required files.
 require_once('config.php');
 require_once('lib/database.php');
+require_once('lib/protected_controller.php');
+require_once('lib/view.php');
 
 //Connect to the database
 database::init();
@@ -44,10 +49,10 @@ database::init();
 //If controller and action are not specified, load the defaults.
 if(!$_GET['controller'] && !$_GET['action']) {
 	$controller = 'home';
-	$controller = 'dashboard';
+	$action = 'dashboard';
 } else {
 	//Validate that our input isn't naughty
-	if(!preg_match("/^[a-z]$/", $_GET['controller']) || !preg_match("/^[a-z]$/", $_GET['action']) || !is_numeric($_GET['id'])) {
+	if(!preg_match("/^([a-z]+)$/", $_GET['controller']) || !preg_match("/^([a-z]+)$/", $_GET['action']) || (isset($_GET['id']) && !is_numeric($_GET['id']))) {
 		die("Fatal error: suspicious controller or action input.");
 	}
 	
@@ -75,6 +80,6 @@ if(!method_exists($controller, $action)) {
 //Do what we do best.
 //Call the controller and action!
 $controller = new $controller();
-$controller->$action;
+$controller->$action();
 
 ?>

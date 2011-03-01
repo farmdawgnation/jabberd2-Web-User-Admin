@@ -33,7 +33,7 @@ class view {
 	public static function load($vname, $data = array()) {
 		//Does the view exist?
 		if(!file_exists(VIEW_PATH . '/' . $vname . '.php')) {
-			die("Error 404: View resource not found.");
+			die("Error 404: View resource not found: " . VIEW_PATH . '/' . $vname . '.php');
 		} else {
 			//Set locals
 			if(is_array($data)) {

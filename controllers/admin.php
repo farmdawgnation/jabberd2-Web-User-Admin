@@ -28,15 +28,53 @@ class admin extends protected_controller {
 	 * The manage list.
 	 */
 	public function users() {
-		//TODO
+		//Retrieve the list of users from the database
+		$data['results'] = database::this()->query("SELECT * FROM authreg");
+		
+		//Load the views
+		view::load('header');
+		view::load('admin/manage', $data);
+		view::load('footer');
 	}
 	
 	public function addUser() {
-		//TOOD
+		//Unified add/edit
+		$this->editUser();
 	}
 	
 	public function editUser() {
-		//TODO
+		//Check the id setting
+		if(!isset($_GET['jid'])) {
+			//Id isn't set. This is an add action
+			$user = array();
+		} else {
+			//The id is set. Retrieve the user from the database
+			$username_parts = explode("@", $_GET['jid']);
+			$pdoStatement = database::this()->prepare("SELECT * FROM authreg WHERE username = :username AND realm = :realm");
+			$pdoStatement->execute(array('username' => $username_parts[0], 'realm' => $username_parts[1]));
+			$user = $pdoStatement->fetch();
+		}
+		
+		//Count the POST variables?
+		//We have incoming post data
+		if(count($_POST) > 0) {
+			//Update the record in the database
+			$updateSql = "UPDATE authreg SET username = :username, realm = :realm, password = :password";
+			$pdoStatement = database::this()->prepare($updateSql);
+			$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password']));
+			
+			//Redirect with success
+			$_SESSION['notice'] = "User saved.";
+			util::redirect('admin', 'users');
+		}
+		
+		//stuff data
+		$data['user'] = $user;
+		
+		//load views
+		view::load('header');
+		view::load('admin/form', $data);
+		view::load('footer');
 	}
 	
 	public function deleteUser() {

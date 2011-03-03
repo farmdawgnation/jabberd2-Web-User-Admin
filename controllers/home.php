@@ -30,7 +30,9 @@ class home extends protected_controller {
 	 * Represents the landing page for the user.
 	 */
 	public function dashboard() {
-		//TODO
+		view::load('header');
+		view::load('home/dashboard');
+		view::load('footer');
 	}
 }
 

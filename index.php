@@ -53,7 +53,7 @@ if(!$_GET['controller'] && !$_GET['action']) {
 	$action = 'dashboard';
 } else {
 	//Validate that our input isn't naughty
-	if(!preg_match("/^([a-z]+)$/", $_GET['controller']) || !preg_match("/^([a-z]+)$/", $_GET['action']) || (isset($_GET['id']) && !is_numeric($_GET['id']))) {
+	if(!preg_match("/^([a-zA-Z]+)$/", $_GET['controller']) || !preg_match("/^([a-zA-Z]+)$/", $_GET['action']) || (isset($_GET['id']) && !is_numeric($_GET['id']))) {
 		die("Fatal error: suspicious controller or action input.");
 	}
 	
@@ -75,7 +75,7 @@ if(file_exists(APP_PATH . '/controllers/' . $controller . '.php')) {
 //If we make it here, we have the controller. Let's make sure the action
 //is real before proceeding.
 if(!method_exists($controller, $action)) {
-	die("Fatal error: Action not found.");
+	die("Fatal error: Action not found: " . $controller . "/" . $action);
 }
 
 //Do what we do best.

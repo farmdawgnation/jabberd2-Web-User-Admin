@@ -32,7 +32,10 @@ class util {
 	 * @param action The action within the controller.
 	 */
 	public function redirect($controller, $action) {
-		header("Location: " . $_SERVER['REQUEST_URI'] . "?controller=$controller&action=$action");
+		$requestdata = $_SERVER['REQUEST_URI'];
+		$requestarr = explode("?", $requestdata);
+		
+		header("Location: " . $requestarr[0] . "?controller=$controller&action=$action");
 		die();
 	}
 }

@@ -39,3 +39,35 @@
 #login_box .submit {
 	text-align: right;
 }
+
+/* Normal content area */
+#content_box {
+	margin-right: auto;
+	margin-left: auto;
+	width: 650px;
+	background-color: #cccccc;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding: 0px 10px 10px 10px;
+	margin-top: 40px;
+	-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 10px 10px 5px #888;
+}
+
+#content_box h1 span {
+	float:right;
+	font-size: 16px;
+}
+
+#content_box #text_box {
+	margin-right: auto;
+	margin-left: auto;
+	width: 640px;
+	background-color: #ffffff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding: 2px;
+}

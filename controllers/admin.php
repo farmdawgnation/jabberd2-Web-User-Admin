@@ -59,10 +59,25 @@ class admin extends protected_controller {
 		//Count the POST variables?
 		//We have incoming post data
 		if(count($_POST) > 0) {
-			//Update the record in the database
-			$updateSql = "UPDATE authreg SET username = :username, realm = :realm, password = :password";
-			$pdoStatement = database::this()->prepare($updateSql);
-			$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password']));
+			//Is this a current user?
+			if(isset($_GET['jid'])) { //This is a pre existing user.
+				//Are we changing their password?
+				if(isset($_POST['password']) && $_POST['password'] != '') {
+					//Update the record in the database
+					$updateSql = "UPDATE authreg SET username = :username, realm = :realm, password = :password WHERE username = :curusername AND realm = :currealm";
+					$pdoStatement = database::this()->prepare($updateSql);
+					$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password'], 'curusername' => $username_parts[0], 'currealm' => $username_parts[1]));
+				} else {
+					//Update the record in the database, without touching the password
+					$updateSql = "UPDATE authreg SET username = :username, realm = :realm WHERE username = :curusername AND realm = :currealm";
+					$pdoStatement = database::this()->prepare($updateSql);
+					$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'curusername' => $username_parts[0], 'currealm' => $username_parts[1]));
+				}
+			} else { //This is a new user
+				$insertSql = "INSERT INTO authreg (:username, :realm, :password);";
+				$pdoStatement = database::this()->prepare($insertSql);
+				$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password']));
+			}
 			
 			//Redirect with success
 			$_SESSION['notice'] = "User saved.";

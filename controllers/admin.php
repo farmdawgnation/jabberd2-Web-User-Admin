@@ -29,7 +29,8 @@ class admin extends protected_controller {
 	 */
 	public function users() {
 		//Retrieve the list of users from the database
-		$data['results'] = database::this()->query("SELECT * FROM authreg");
+		$pdoStatement = database::this()->query("SELECT * FROM authreg");
+		$data['users'] = $pdoStatement->fetchAll();
 		
 		//Load the views
 		view::load('header');

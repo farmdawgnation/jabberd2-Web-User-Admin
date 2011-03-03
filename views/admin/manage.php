@@ -16,10 +16,10 @@
 				</tr>
 				<? foreach($users as $user) { ?>
 					<tr>
-						<td><?= $user['jid'] ?>@<?= $user['realm'] ?></td>
+						<td><?= $user['username'] ?>@<?= $user['realm'] ?></td>
 						<td>
-							<a href="#">Edit</a> |
-							<a href="#">Delete</a>
+							<a href="?controller=admin&action=editUser&jid=<?= $user['username'] ?>@<?= $user['realm'] ?>">Edit</a> |
+							<a href="?controller=admin&action=deleteUser&jid=<?= $user['username'] ?>@<?= $user['realm'] ?>" onclick="return confirm('This action cannot be reversed. Proceed?')">Delete</a>
 						</td>
 					</tr>
 				<? } ?>

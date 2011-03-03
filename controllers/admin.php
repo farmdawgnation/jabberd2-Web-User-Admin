@@ -73,10 +73,35 @@ class admin extends protected_controller {
 					$pdoStatement = database::this()->prepare($updateSql);
 					$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'curusername' => $username_parts[0], 'currealm' => $username_parts[1]));
 				}
+				
+				//Now we must update the active table
+				$updateSql = "UPDATE active SET collection-owner = :jid WHERE collection-owner = :curjid";
+				$pdoStatement = database::this()->prepare($updateSql);
+				$result = $pdoStatement->execute(array('jid' => $_POST['username'] . '@' . $_POST['realm'], 'curjid' => $_GET['jid']));
+				
+				if(!$result) die(print_r($result->errorInfo()));
 			} else { //This is a new user
-				$insertSql = "INSERT INTO authreg (:username, :realm, :password);";
+				//Create the authreg record.
+				$insertSql = "INSERT INTO authreg VALUES (:username, :realm, :password);";
 				$pdoStatement = database::this()->prepare($insertSql);
-				$pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password']));
+				$result = $pdoStatement->execute(array('username' => $_POST['username'], 'realm' => $_POST['realm'], 'password' => $_POST['password']));
+				
+				if($result) {
+					//Create the active record
+					$insertSql = "INSERT INTO active (`collection-owner`, `time`) VALUES (:jid, UNIX_TIMESTAMP());";
+					$pdoStatement = database::this()->prepare($insertSql);
+					$result = $pdoStatement->execute(array('jid' => $_POST['username'] . '@' . $_POST['realm']));
+					
+					if(!$result) {
+						//Redirect with failure
+						$_SESSION['error'] = "PDO Error on active.";
+						util::redirect('admin', 'users');
+					}
+				} else {
+					//Redirect with failure
+					$_SESSION['error'] = "PDO Error on authreg.";
+					util::redirect('admin', 'users');
+				}
 			}
 			
 			//Redirect with success
